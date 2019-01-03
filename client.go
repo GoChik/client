@@ -11,6 +11,9 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+// Current software version
+var Version = "dev"
+
 func main() {
 	config.SetConfigFileName("client.conf")
 	config.AddSearchPath("/etc/chik")
@@ -37,7 +40,7 @@ func main() {
 		handlers.NewTimers(),
 		handlers.NewSunset(),
 		handlers.NewHeartBeatHandler(2 * time.Minute),
-		handlers.NewUpdater(),
+		handlers.NewUpdater(Version),
 	}
 
 	for _, h := range handlerList {
