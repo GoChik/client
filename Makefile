@@ -1,9 +1,12 @@
 VERSION = $(shell git describe --always)
 GOFLAGS = -ldflags="-X main.Version=$(VERSION) -s -w"
 
-.PHONY: default rpi_client gpio_client deploy help
+.PHONY: default dependencies rpi_client gpio_client deploy help
 
 default: help
+
+dependencies:
+	go get -u github.com/rferrazz/go-selfupdate
 
 rpi_client:
 	GOOS=linux GOARCH=arm GOARM=6 go build -tags raspberrypi $(GOFLAGS)
@@ -39,4 +42,4 @@ clean:
 	git clean -dfx
 
 help:
-	@echo "make [rpi_client gpio_client clean deploy]"
+	@echo "make [ dependencies rpi_client gpio_client clean deploy]"

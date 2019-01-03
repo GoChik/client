@@ -16,4 +16,5 @@ jobs:
       - export PATH=${TRAVIS_BUILD_DIR}:$PATH
       - export GOOS=linux
       - export GOARCH=amd64
+      - make dependencies
       - make deploy
