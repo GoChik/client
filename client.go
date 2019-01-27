@@ -23,7 +23,8 @@ func main() {
 		logrus.Warn("Failed parsing config file: ", err)
 	}
 
-	server := config.Get("server").(string)
+	var server string
+	config.GetStruct("server", &server)
 	if server == "" {
 		config.Set("server", "127.0.0.1:6767")
 		config.Sync()
