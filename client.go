@@ -7,7 +7,13 @@ import (
 
 	"github.com/gochik/chik"
 	"github.com/gochik/chik/config"
-	"github.com/gochik/chik/handlers"
+	"github.com/gochik/chik/handlers/io"
+	"github.com/gochik/chik/handlers/status"
+	"github.com/gochik/chik/handlers/actor"
+	"github.com/gochik/chik/handlers/timer"
+	"github.com/gochik/chik/handlers/sunphase"
+	"github.com/gochik/chik/handlers/heartbeat"
+	"github.com/gochik/chik/handlers/version"
 	"github.com/sirupsen/logrus"
 )
 
@@ -36,12 +42,13 @@ func main() {
 
 	// Creating handlers
 	handlerList := []chik.Handler{
-		handlers.NewStatusHandler(),
-		handlers.NewIoHandler(),
-		handlers.NewTimers(),
-		handlers.NewSunset(),
-		handlers.NewHeartBeatHandler(2 * time.Minute),
-		handlers.NewUpdater(Version),
+		status.New(),
+		io.New(),
+		actor.New(),
+		timer.New(),
+		sunphase.New(),
+		heartbeat.New(2 * time.Minute),
+		version.New(Version),
 	}
 
 	for _, h := range handlerList {

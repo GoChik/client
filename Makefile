@@ -8,28 +8,23 @@ default: help
 dependencies:
 	go get -u github.com/rferrazz/go-selfupdate
 
-rpi_client:
-	GOOS=linux GOARCH=arm GOARM=6 go build -tags raspberrypi $(GOFLAGS)
-	mkdir -p bin/client
-	mv client bin/client/linux-arm
-
 gpio_client:
 	test -n "$(GOOS)" # GOOS
 	test -n "$(GOARCH)" # GOARCH
-	go build -tags gpio $(GOFLAGS)
+	go build -tags gpioActuator $(GOFLAGS)
 	mkdir -p bin/client
 	mv client bin/client/$(GOOS)-$(GOARCH)
 
 fake_client:
 	test -n "$(GOOS)" # GOOS
 	test -n "$(GOARCH)" # GOARCH
-	go build -tags fake $(GOFLAGS)
+	go build $(GOFLAGS)
 	mkdir -p bin/client
 	mv client bin/client/$(GOOS)-$(GOARCH)
 
-deploy:
-	make rpi_client
-	GOOS=linux GOARCH=mipsle make gpio_client
+deploy: 
+	GOOS=linux GOARCH=arm GOARM=6 make gpio_client
+	GOOS=linux GOARCH=mipsle make gpio_client 
 	GOOS=darwin GOARCH=amd64 make fake_client
 	GOOS=linux GOARCH=amd64 make fake_client
 	mkdir -p release/client
