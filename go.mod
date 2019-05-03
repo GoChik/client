@@ -1,4 +1,4 @@
-module client
+module github.com/gochik/client
 
 go 1.12
 
