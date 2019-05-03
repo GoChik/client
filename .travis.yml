@@ -1,20 +1,40 @@
 language: go
-
 go:
-    - 1.11
+- 1.12
 
 install: skip
 script: skip
 
 jobs:
-    include:
-    - stage: deploy
-      if: tag IS present
-      script:
-      - export GO111MODULE=on
-      - curl -fL https://getcli.jfrog.io | sh
-      - export PATH=${TRAVIS_BUILD_DIR}:$PATH
-      - export GOOS=linux
-      - export GOARCH=amd64
-      - make dependencies
-      - make deploy
+  include:
+  - stage: build
+    script:
+    - export GO111MODULE=on
+    - make deploy
+  - stage: deploy
+    script:
+    - export GO111MODULE=on
+    - make deploy
+    deploy:
+    provider: releases
+    api_key:
+        secure: gaKQ02TYNaCXCTnVwpaXFtZG8To98qw/gbE+quWVfyO9oHhAv9ihTOQybko9+2Vr0fPrz1gyENvsyzWa01T9dvn+4S5S+p6CQubUV3hiItbkaRDGNv8HVqwLHh4zvqfr0NHTX01qR/+7mcG06uSBcvVkgnucevRxp/tmaEiVOcwnPCcaxL8wUKt3hMcNnxaF8KZlkpGJyaXaWypdNlsa0V6YF2zDliGw9I4SGWEXkL5Ln8D3fzvZDVt2EGw8crB5JvrCOcfcgyxSeIPJoWcHD171e/oF6T1RPrgEg7L3IWVWLoWYszfDFuKQ1h2AtjyhD/yEvh7TyPPKnq0WEufHsmmWG+2E3ncJTO1cGdICh/iZfNM2DzlgbGIQdjixgWo1v8vbq+fF/XsZmI2jouo5PmgtdAh605AzY2c+KITdMOY/Twgmo8QBwFXdOD3JXfRXZD48CwuyhKimut2vtoKThp2dcGH++ei7PbnrQ2jCxLaB5xYPE2kRKrHLrsJvrRPELSyIYU7TYgyqY/OswbDzGp74J0z7TVZg1onCRVU+deBoxIzsQu5Bm5lboF0G/L1bjRP+cz9Jh56qWxSoiCm0zh3paMrqBci+c/DXFpsYmdjhYRIVdT35TKAa7+UdWB+5CdO8Wkx3YR6fU7IjmcBJXJUEGnWnIv6mGVvfolVpaCk=
+    skip_cleanup: true
+    file: 
+        - bin/client/linux-arm
+        - bin/client/linux-mipsle
+        - bin/client/linux-amd64
+        - bin/client/darwin-amd64
+    on:
+        repo: GoChik/client
+        tags: true
+
+# Bintray deploy with update mechanism
+    # script:
+    # - export GO111MODULE=on
+    # - curl -fL https://getcli.jfrog.io | sh
+    # - export PATH=${TRAVIS_BUILD_DIR}:$PATH
+    # - export GOOS=linux
+    # - export GOARCH=amd64
+    # - make dependencies
+    # - make deploy-bintray
