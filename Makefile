@@ -1,7 +1,7 @@
 VERSION = $(shell git describe --always)
 GOFLAGS = -ldflags="-X main.Version=$(VERSION) -s -w"
 
-.PHONY: default dependencies rpi_client gpio_client deploy help
+.PHONY: default dependencies rpi_client gpio_client deploy bintray-deploy help
 
 default: help
 
@@ -27,6 +27,9 @@ deploy:
 	GOOS=linux GOARCH=mipsle make gpio_client 
 	GOOS=darwin GOARCH=amd64 make fake_client
 	GOOS=linux GOARCH=amd64 make fake_client
+
+bintray-deploy:
+	deploy
 	mkdir -p release/client
 	rm -rf release/client/*
 	@JFROG_CLI_OFFER_CONFIG=false jfrog bt dlv --user=rferrazz --key=$(BINTRAY_API_KEY) rferrazz/IO-Something/client/rolling release/
@@ -37,4 +40,4 @@ clean:
 	git clean -dfx
 
 help:
-	@echo "make [ dependencies rpi_client gpio_client clean deploy]"
+	@echo "make [ dependencies rpi_client gpio_client deploy bintray-deploy clean ]"
