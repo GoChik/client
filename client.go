@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"crypto/tls"
+	"flag"
 	"net"
 	"time"
 
@@ -19,11 +20,18 @@ import (
 
 // Current software version
 var Version = "dev"
+var localSearchPath string
+
+func init() {
+	flag.StringVar(&localSearchPath, "config", ".", "Config file path")
+}
 
 func main() {
+	flag.Parse()
+
 	config.SetConfigFileName("client.conf")
 	config.AddSearchPath("/etc/chik")
-	config.AddSearchPath(".")
+	config.AddSearchPath(localSearchPath)
 	err := config.ParseConfig()
 	if err != nil {
 		log.Warn().Msgf("Failed parsing config file: %v", err)
