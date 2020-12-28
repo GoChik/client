@@ -12,6 +12,7 @@ import (
 	"github.com/gochik/chik/handlers/actor"
 	"github.com/gochik/chik/handlers/datetime"
 	"github.com/gochik/chik/handlers/heartbeat"
+	"github.com/gochik/chik/handlers/heating"
 	"github.com/gochik/chik/handlers/io"
 	"github.com/gochik/chik/handlers/status"
 	"github.com/gochik/chik/handlers/version"
@@ -55,6 +56,7 @@ func main() {
 		version.New(Version),
 		datetime.New(),
 		actor.New(),
+		heating.New(),
 	})
 
 	// Listening network
