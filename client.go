@@ -15,6 +15,7 @@ import (
 	"github.com/gochik/chik/handlers/heating"
 	"github.com/gochik/chik/handlers/io"
 	"github.com/gochik/chik/handlers/status"
+	"github.com/gochik/chik/handlers/telegram"
 	"github.com/gochik/chik/handlers/version"
 	"github.com/rs/zerolog/log"
 )
@@ -57,6 +58,7 @@ func main() {
 		datetime.New(),
 		actor.New(),
 		heating.New(),
+		telegram.New(),
 	})
 
 	// Listening network
