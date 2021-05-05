@@ -40,9 +40,15 @@ func main() {
 	}
 
 	var server string
-	config.GetStruct("server", &server)
+	config.GetStruct("connection.server", &server)
 	if server == "" {
 		log.Fatal().Msg("Cannot get server from config")
+	}
+
+	var token string
+	config.GetStruct("connection.token", &token)
+	if token == "" {
+		log.Fatal().Msg("Cannot get token from config")
 	}
 
 	log.Info().Msgf("Server: %v", server)
@@ -61,9 +67,14 @@ func main() {
 		telegram.New(),
 	})
 
+	conf, err := config.TlsConfig(ctx, token)
+	if err != nil {
+		log.Fatal().Msgf("Cannot get TLS config: %v", err)
+	}
+
 	// Listening network
 	for {
-		conn, err := tls.DialWithDialer(&net.Dialer{Timeout: 1 * time.Minute}, "tcp", server, &tls.Config{InsecureSkipVerify: true})
+		conn, err := tls.DialWithDialer(&net.Dialer{Timeout: 1 * time.Minute}, "tcp", server, conf)
 		if err == nil {
 			log.Debug().Msg("New connection")
 			<-controller.Connect(conn)
