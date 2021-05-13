@@ -67,7 +67,7 @@ func main() {
 		telegram.New(),
 	})
 
-	conf, err := config.TlsConfig(ctx, token)
+	conf, err := config.TLSConfig(ctx, token)
 	if err != nil {
 		log.Fatal().Msgf("Cannot get TLS config: %v", err)
 	}
