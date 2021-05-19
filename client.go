@@ -65,20 +65,30 @@ func main() {
 		actor.New(),
 		heating.New(),
 		telegram.New(),
+		systemd.New(),
+		snapcast.New(),
 	})
-
-	conf, err := config.TLSConfig(ctx, token)
-	if err != nil {
-		log.Fatal().Msgf("Cannot get TLS config: %v", err)
-	}
 
 	// Listening network
 	for {
-		conn, err := tls.DialWithDialer(&net.Dialer{Timeout: 1 * time.Minute}, "tcp", server, conf)
+		conn, err := connect(ctx, token, server)
 		if err == nil {
 			log.Debug().Msg("New connection")
 			<-controller.Connect(conn)
+		} else {
+			log.Err(err).Msg("Client connection failed, retrying in 10s")
 		}
 		time.Sleep(10 * time.Second)
 	}
+}
+
+func connect(ctx context.Context, token string, server string) (conn *tls.Conn, err error) {
+	if conf == nil {
+		conf, err = config.TLSConfig(ctx, token)
+		if err != nil {
+			log.Err(err).Msgf("Cannot get TLS config")
+			return
+		}
+	}
+	return tls.DialWithDialer(&net.Dialer{Timeout: 1 * time.Minute}, "tcp", server, conf)
 }
