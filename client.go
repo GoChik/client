@@ -14,7 +14,9 @@ import (
 	"github.com/gochik/chik/handlers/heartbeat"
 	"github.com/gochik/chik/handlers/heating"
 	"github.com/gochik/chik/handlers/io"
+	"github.com/gochik/chik/handlers/snapcast"
 	"github.com/gochik/chik/handlers/status"
+	"github.com/gochik/chik/handlers/systemd"
 	"github.com/gochik/chik/handlers/telegram"
 	"github.com/gochik/chik/handlers/version"
 	"github.com/rs/zerolog/log"
@@ -23,9 +25,10 @@ import (
 // Current software version
 var Version = "dev"
 var localSearchPath string
+var conf *tls.Config
 
 func init() {
-	flag.StringVar(&localSearchPath, "config", ".", "Config file path")
+	flag.StringVar(&localSearchPath, "config", "/etc/chik", "Config file path")
 }
 
 func main() {
