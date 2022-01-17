@@ -35,8 +35,8 @@ func main() {
 	flag.Parse()
 
 	config.SetConfigFileName("client.conf")
-	config.AddSearchPath("/etc/chik")
 	config.AddSearchPath(localSearchPath)
+	config.AddSearchPath("/etc/chik")
 	err := config.ParseConfig()
 	if err != nil {
 		log.Warn().Msgf("Failed parsing config file: %v", err)
