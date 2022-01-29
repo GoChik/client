@@ -77,7 +77,8 @@ func main() {
 		conn, err := connect(ctx, token, server)
 		if err == nil {
 			log.Debug().Msg("New connection")
-			<-controller.Connect(conn)
+			ctx, _ := chik.StartRemote(controller, conn, chik.MaxIdleTime)
+			<-ctx.Done()
 		} else {
 			log.Err(err).Msg("Client connection failed, retrying in 10s")
 		}
