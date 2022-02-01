@@ -62,7 +62,7 @@ func main() {
 	go controller.Start(ctx, []chik.Handler{
 		status.New(),
 		io.New(),
-		heartbeat.New(2 * time.Minute),
+		heartbeat.New(),
 		version.New(Version),
 		datetime.New(),
 		actor.New(),
@@ -77,8 +77,9 @@ func main() {
 		conn, err := connect(ctx, token, server)
 		if err == nil {
 			log.Debug().Msg("New connection")
-			ctx, _ := chik.StartRemote(controller, conn, chik.MaxIdleTime)
+			ctx, cancel := chik.StartRemote(controller, conn, chik.MaxIdleTime)
 			<-ctx.Done()
+			cancel()
 		} else {
 			log.Err(err).Msg("Client connection failed, retrying in 10s")
 		}

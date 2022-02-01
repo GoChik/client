@@ -29,9 +29,9 @@ soft_client:
 	mkdir -p bin/client
 	mv client bin/client/$(GOOS)-$(GOARCH)
 
-deploy: 
+deploy:
 	GOOS=linux GOARCH=arm GOARM=6 make raspberrypi_client
-	GOOS=linux GOARCH=mipsle make raspberrypi_client 
+	GOOS=linux GOARCH=mipsle make raspberrypi_client
 	GOOS=darwin GOARCH=amd64 make soft_client
 	GOOS=linux GOARCH=amd64 make soft_client
 
