@@ -5,7 +5,7 @@ go 1.17
 // replace github.com/gochik/chik => ../chik
 
 require (
-	github.com/gochik/chik v1.7.1
+	github.com/gochik/chik v1.8.0
 	github.com/rs/zerolog v1.26.1
 )
 
