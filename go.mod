@@ -1,11 +1,11 @@
 module github.com/gochik/client
 
-go 1.18
+go 1.20
 
 // replace github.com/gochik/chik => ../chik
 
 require (
-	github.com/gochik/chik v1.9.0
+	github.com/gochik/chik v1.9.1
 	github.com/rs/zerolog v1.26.1
 )
 

@@ -195,8 +195,8 @@ github.com/go-sql-driver/mysql v1.5.0/go.mod h1:DCzpHaOWr8IXmIStZouvnhqoel9Qv2LB
 github.com/go-stack/stack v1.6.0/go.mod h1:v0f6uXyyMGvRgIKkXu+yp6POWl0qKG85gN/melR3HDY=
 github.com/go-stack/stack v1.8.0 h1:5SgMzNM5HxrEjV0ww2lTmX6E2Izsfxas4+YHWRs3Lsk=
 github.com/go-stack/stack v1.8.0/go.mod h1:v0f6uXyyMGvRgIKkXu+yp6POWl0qKG85gN/melR3HDY=
-github.com/gochik/chik v1.9.0 h1:dDvcMBLWttVS8chqBamqao+uJKf2QDPHHz/45zYdR+E=
-github.com/gochik/chik v1.9.0/go.mod h1:xYT0jVfhMZVAQiT5sK7VDEd1m1ngHcpHtcCCWmTjaiw=
+github.com/gochik/chik v1.9.1 h1:CXBRJKlkfablmkPLjbmRv+DtyOCV9JpFXG0YeRwO36w=
+github.com/gochik/chik v1.9.1/go.mod h1:hMfJ9APGmBv5Mw4xZZu4hbk/srO8sjAeyJRUWIrH3Io=
 github.com/gochik/gpio v1.2.0 h1:AadlgM+DYHW6r1/kGVAF2zHyve9lOzpB8/9AUoqXQME=
 github.com/gochik/gpio v1.2.0/go.mod h1:62OLGkj4xGhx7pbuJ+fLlnD3kmf78zIe7EAK5WWRH/0=
 github.com/gochik/modbus v0.0.0-20200809120227-19556d19cd9e h1:nhdsTL63wOVZd8BdFw7IDJ1ou7nMaUnDYPnt+/AboM4=
