@@ -14,6 +14,7 @@ import (
 	"github.com/gochik/chik/handlers/heartbeat"
 	"github.com/gochik/chik/handlers/heating"
 	"github.com/gochik/chik/handlers/io"
+	"github.com/gochik/chik/handlers/router"
 	"github.com/gochik/chik/handlers/snapcast"
 	"github.com/gochik/chik/handlers/status"
 	"github.com/gochik/chik/handlers/systemd"
@@ -60,6 +61,7 @@ func main() {
 	ctx := context.Background()
 	// Creating handlers
 	go controller.Start(ctx, []chik.Handler{
+		router.New(nil),
 		status.New(),
 		io.New(),
 		heartbeat.New(),
